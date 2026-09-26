@@ -1,0 +1,59 @@
+<!-- ===================================
+     WhatsApp Floating Button Widget
+     Isko apni website ke </body> tag se
+     thodi pehle paste kar dena
+=================================== -->
+
+<style>
+  .whatsapp-float-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    height: 56px;
+    padding: 0 20px 0 16px;
+    background: #25D366;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    z-index: 9999;
+    transition: transform 0.2s ease, background 0.2s ease;
+    text-decoration: none;
+  }
+
+  .whatsapp-float-btn:hover {
+    background: #1ebe5b;
+    transform: scale(1.05);
+  }
+
+  .whatsapp-float-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .whatsapp-float-btn span {
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>
+
+<!-- WhatsApp Floating Button -->
+<a
+  href="https://wa.me/919116849996?text=Hi%2C%20I%20have%20a%20question"
+  class="whatsapp-float-btn"
+  target="_blank"
+  rel="noopener"
+  aria-label="Chat on WhatsApp"
+>
+  <svg viewBox="0 0 32 32">
+    <path d="M16.001 3C9.373 3 4 8.373 4 15.001c0 2.362.656 4.57 1.795 6.457L4 29l7.723-1.762a11.94 11.94 0 0 0 4.278.79H16c6.628 0 12-5.373 12-12.001C28 8.373 22.628 3 16.001 3zm0 21.6c-1.428 0-2.833-.373-4.06-1.08l-.29-.17-4.584 1.046 1.02-4.47-.19-.302A9.57 9.57 0 0 1 6.4 15.001C6.4 9.72 10.72 5.4 16.001 5.4 21.28 5.4 25.6 9.72 25.6 15.001c0 5.28-4.32 9.6-9.599 9.6zm5.42-7.191c-.297-.148-1.754-.865-2.026-.964-.272-.099-.47-.148-.667.15-.198.297-.766.964-.94 1.162-.173.198-.346.223-.643.075-.297-.148-1.254-.462-2.389-1.474-.883-.788-1.48-1.762-1.653-2.06-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.148-.174.198-.298.297-.496.099-.198.05-.372-.025-.52-.075-.148-.667-1.61-.914-2.204-.24-.578-.484-.5-.667-.51l-.568-.01c-.198 0-.52.074-.792.372-.272.298-1.04 1.017-1.04 2.48s1.065 2.876 1.213 3.074c.148.198 2.096 3.2 5.08 4.489.71.307 1.263.49 1.695.627.712.227 1.36.195 1.872.118.571-.085 1.754-.717 2.001-1.41.247-.694.247-1.288.173-1.41-.074-.124-.272-.198-.569-.347z"></path>
+  </svg>
+  <span>WhatsApp</span>
+</a>
