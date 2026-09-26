@@ -1,4 +1,4 @@
-# 👋 Welcome to Anil Saini's Code World
+# 👋 Welcome to Anil Saini
 
 This repository contains the complete code for my website — clean, organized, and built with care. 🚀
 
