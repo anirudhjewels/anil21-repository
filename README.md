@@ -1,10 +1,10 @@
 # 👋 Welcome to Anil Saini's Code World
 
-Here you'll find every project from my coding journey — big or small — websites, scripts, and experiments, all in one place. Every repository is a new step in learning. 🚀
+This repository contains the complete code for my website — clean, organized, and built with care. 🚀
 
 ## 🔧 What you'll find here
-- Web development projects
+- Website source code
 - Clean & practical code
-- Continuous learning and improvement
+- Well-organized project structure
 
-Feel free to explore, star ⭐, and share your suggestions!
+Feel free to explore and share your suggestions!
