@@ -1,0 +1,191 @@
+<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Rings FAQs — Anirudh Jewels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b0e3d; --gold:#c9a24a; --gold-light:#e7cd8e;
+    --cream:#fbf6ee; --cream-2:#f4ecdd; --ink:#221c1a; --ink-soft:#5b5450;
+    --line: rgba(34,28,26,0.12); --surface:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--cream); color:var(--ink); font-family:'Jost', sans-serif; font-weight:300; line-height:1.6; }
+  h1,h2,h3{ font-family:'Cormorant Garamond', serif; font-weight:500; color:var(--ink); line-height:1.15; }
+  .wrap{max-width:880px; margin:0 auto; padding:0 32px;}
+  @media (max-width:600px){ .wrap{padding:0 20px;} }
+
+  .faq-section{ padding:48px 0 80px; }
+
+  .faq-search{ max-width:460px; margin:0 auto 40px; position:relative; }
+  .faq-search input{
+    width:100%; padding:14px 44px 14px 18px; border:1px solid var(--line); border-radius:30px;
+    background:var(--surface); font-family:'Jost',sans-serif; font-size:14.5px; color:var(--ink);
+    outline:none; transition:border-color .2s ease;
+  }
+  .faq-search input:focus{ border-color:var(--gold); }
+  .faq-search svg{ position:absolute; right:16px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--ink-soft); pointer-events:none; }
+
+  .faq-count{ text-align:center; font-size:13px; color:var(--ink-soft); letter-spacing:.05em; margin:-24px 0 30px; }
+  .faq-list{ display:flex; flex-direction:column; gap:10px; }
+  .faq-item{ background:var(--surface); border:1px solid var(--line); border-radius:8px; overflow:hidden; transition:border-color .2s ease; }
+  .faq-item.open{ border-color:var(--gold-light); }
+  .faq-q{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; cursor:pointer; user-select:none; }
+  .faq-q .num{ font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--gold); flex:0 0 auto; min-width:22px; }
+  .faq-q h3{ font-family:'Jost', sans-serif; font-weight:500; font-size:16px; color:var(--ink); flex:1; }
+  .faq-toggle{ flex:0 0 auto; width:26px; height:26px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; position:relative; }
+  .faq-toggle::before, .faq-toggle::after{ content:''; position:absolute; background:var(--gold); transition:transform .25s ease, opacity .25s ease; }
+  .faq-toggle::before{ width:11px; height:1.4px; }
+  .faq-toggle::after{ width:1.4px; height:11px; }
+  .faq-item.open .faq-toggle::after{ transform:rotate(90deg); opacity:0; }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+  .faq-a-inner{ padding:0 22px 20px 60px; font-size:15px; color:var(--ink-soft); max-width:640px; }
+  @media (max-width:600px){ .faq-a-inner{ padding-left:22px; } }
+  .faq-empty{ text-align:center; color:var(--ink-soft); font-size:15px; padding:40px 0; display:none; }
+
+  .faq-cta{ margin-top:56px; text-align:center; padding:40px 32px; background:var(--cream-2); border-radius:10px; }
+  .faq-cta h2{ font-size:28px; margin-bottom:12px; }
+  .faq-cta p{ color:var(--ink-soft); font-size:15px; margin-bottom:22px; max-width:480px; margin-left:auto; margin-right:auto; }
+  .btn-gold{
+    display:inline-block; background:var(--gold-light); color:var(--navy); padding:14px 32px;
+    font-size:13.5px; letter-spacing:.12em; text-decoration:none; border-radius:2px;
+    font-family:'Jost',sans-serif; font-weight:500; transition:opacity .2s ease;
+  }
+  .btn-gold:hover{ opacity:.85; }
+</style>
+
+  <section class="faq-section">
+    <div class="wrap">
+      <div class="faq-search">
+        <input type="text" id="faqSearchInput" placeholder="Search a question..." oninput="filterFAQs()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </div>
+      <p class="faq-count" id="faqCount"></p>
+
+      <div class="faq-list" id="faqList"></div>
+      <p class="faq-empty" id="faqEmpty">No matching questions found. Try a different search term.</p>
+
+      <div class="faq-cta">
+        <h2>Still have a question?</h2>
+        <p>Reach out to our team for anything related to Diamond Rings, custom designs, or wholesale requirements.</p>
+        <a href="/pages/contact-us" class="btn-gold">CONTACT US</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const faqs = [
+    ["What are Diamond Rings?","Diamond Rings are jewelry pieces featuring one or more diamonds and are available in many styles, metals, shapes, and settings for different occasions."],
+    ["What are Diamond Rings for Women?","Diamond Rings for Women are available in styles such as solitaire, halo, oval, round, three-stone, gold, and custom diamond ring designs."],
+    ["Are Diamond Rings for Men available?","Yes, Diamond Rings for Men are available in classic, modern, simple, gold, and diamond-focused designs suitable for different preferences."],
+    ["What is a Diamond Ring?","A Diamond Ring is a ring featuring a diamond as the center stone, accent stone, or part of the overall design."],
+    ["What are Diamond Ring Designs?","Diamond Ring Designs include solitaire, halo, oval, round, princess cut, emerald cut, cushion cut, three-stone, and other modern and classic styles."],
+    ["Where can I find a Diamond Ring Collection?","A Diamond Ring Collection can include different styles for women and men, including engagement rings, wedding rings, gold diamond rings, and custom designs."],
+    ["Can I Buy Diamond Rings Online?","Yes, you can Buy Diamond Rings Online by comparing designs, diamond details, metal options, sizes, certifications where applicable, and seller information."],
+    ["What should I check when buying Diamond Rings Online?","When buying Diamond Rings Online, check the diamond specifications, metal type, ring size, certification where applicable, product details, and return or exchange terms."],
+    ["What are Natural Diamond Rings?","Natural Diamond Rings feature diamonds that are naturally formed and are available in different cuts, carat weights, colors, and clarity grades."],
+    ["What are Real Diamond Rings?","Real Diamond Rings use genuine diamonds rather than diamond-look alternatives. Buyers should review the product specifications and certification details where applicable."],
+    ["What are Luxury Diamond Rings?","Luxury Diamond Rings generally feature premium materials, diamonds, detailed craftsmanship, and distinctive designs."],
+    ["What is a Solitaire Diamond Ring?","A Solitaire Diamond Ring normally features one main center diamond, creating a simple and classic design."],
+    ["What is a Halo Diamond Ring?","A Halo Diamond Ring features a center diamond surrounded by smaller diamonds, creating a detailed and sparkling appearance."],
+    ["What is an Oval Diamond Ring?","An Oval Diamond Ring features an oval-shaped diamond and can be designed as a solitaire, halo, or other ring style."],
+    ["What is a Round Diamond Ring?","A Round Diamond Ring features a round-shaped diamond and is available in classic, solitaire, halo, and other settings."],
+    ["What is a Pear Shaped Diamond Ring?","A Pear Shaped Diamond Ring features a pear or teardrop-shaped diamond and can be used in modern, classic, and custom designs."],
+    ["What is a Princess Cut Diamond Ring?","A Princess Cut Diamond Ring features a square or rectangular-shaped princess-cut diamond and is available in different settings."],
+    ["What is an Emerald Cut Diamond Ring?","An Emerald Cut Diamond Ring features an emerald-cut diamond with a rectangular shape and step-cut appearance."],
+    ["What is a Cushion Cut Diamond Ring?","A Cushion Cut Diamond Ring features a cushion-shaped diamond with rounded corners and can be used in classic and modern designs."],
+    ["What is a Marquise Diamond Ring?","A Marquise Diamond Ring features an elongated diamond with pointed ends and can create a distinctive ring design."],
+    ["What is a Radiant Cut Diamond Ring?","A Radiant Cut Diamond Ring features a rectangular or square-shaped diamond with cut corners and a brilliant-style appearance."],
+    ["What is a Three Stone Diamond Ring?","A Three Stone Diamond Ring features three main diamonds and can represent different meanings depending on the wearer's preference."],
+    ["What is a Cluster Diamond Ring?","A Cluster Diamond Ring uses multiple diamonds arranged together to create a larger and more detailed appearance."],
+    ["What is a Gold Diamond Ring?","A Gold Diamond Ring combines gold with one or more diamonds and can be made in yellow gold, white gold, or rose gold."],
+    ["Are Diamond Rings Gold available?","Yes, Diamond Rings Gold are available in different styles, including classic, modern, solitaire, halo, and custom designs."],
+    ["What are Diamond Rings for Women Gold?","Diamond Rings for Women Gold combine gold with diamonds and are available in different settings, shapes, and designs."],
+    ["What are Gold Diamond Rings for Women?","Gold Diamond Rings for Women combine the traditional appearance of gold with diamonds and can be designed for everyday wear or special occasions."],
+    ["What is a White Gold Diamond Ring?","A White Gold Diamond Ring combines white gold with diamonds and is available in many classic and modern ring designs."],
+    ["What is a Yellow Gold Diamond Ring?","A Yellow Gold Diamond Ring uses yellow gold as the main metal and can feature one or multiple diamonds."],
+    ["What is a Rose Gold Diamond Ring?","A Rose Gold Diamond Ring combines rose-colored gold with diamonds to create a warm-toned jewelry design."],
+    ["What are 14K Gold Diamond Rings?","14K Gold Diamond Rings use 14-karat gold and can feature diamonds in different settings and designs."],
+    ["What are 18K Gold Diamond Rings?","18K Gold Diamond Rings use 18-karat gold and are available in different designs, including solitaire, halo, and custom styles."],
+    ["What is a Lab Grown Diamond Ring?","A Lab Grown Diamond Ring features a diamond created in a laboratory and can be designed in different shapes, settings, and metals."],
+    ["What are Lab Grown Diamond Rings for Women?","Lab Grown Diamond Rings for Women are available in solitaire, halo, oval, gold, and other popular ring designs."],
+    ["Are Lab Grown Diamond Rings for Men available?","Yes, Lab Grown Diamond Rings for Men are available in simple, modern, gold, and other contemporary styles."],
+    ["What is a Lab Grown Diamond Engagement Ring?","A Lab Grown Diamond Engagement Ring uses a laboratory-grown diamond as the main gemstone and can be created in various engagement ring settings."],
+    ["What are Lab Grown Diamond Rings Gold?","Lab Grown Diamond Rings Gold combine a lab-grown diamond with yellow, white, or rose gold depending on the design."],
+    ["What is a Lab Created Diamond Ring?","A Lab Created Diamond Ring is another term commonly used for a diamond created in a controlled laboratory environment."],
+    ["What is a Lab Diamond Ring?","A Lab Diamond Ring features a laboratory-grown diamond and can be designed in different cuts, sizes, settings, and metals."],
+    ["What are Lab Grown Diamond Solitaire Rings?","Lab Grown Diamond Solitaire Rings feature one main lab-grown diamond in a simple and classic solitaire setting."],
+    ["What are Diamond Engagement Rings?","Diamond Engagement Rings are engagement rings featuring diamonds and are available in solitaire, halo, oval, round, gold, and custom designs."],
+    ["What are Diamond Engagement Rings for Women?","Diamond Engagement Rings for Women are available in different diamond shapes, metals, settings, and styles to suit different preferences."],
+    ["What are Diamond Wedding Rings?","Diamond Wedding Rings feature diamonds and can be designed as traditional, modern, matching, or custom wedding jewelry."],
+    ["Can I get a Diamond Wedding Ring Set?","Yes, Diamond Wedding Ring Sets can include matching rings designed to complement each other."],
+    ["What is a Diamond Ring for Engagement?","A Diamond Ring for Engagement is designed for proposals or engagements and commonly features a central diamond with a suitable setting."],
+    ["What are Custom Diamond Rings?","Custom Diamond Rings are created according to specific requirements such as diamond shape, metal, setting, size, and overall design."],
+    ["Can I order a Custom Diamond Ring?","Yes, buyers can discuss a Custom Diamond Ring based on their preferred design, diamond, metal, size, and other specifications."],
+    ["What is a Custom Diamond Ring Manufacturer?","A Custom Diamond Ring Manufacturer creates diamond rings according to a buyer's specific design and production requirements."],
+    ["Can USA buyers work with a Diamond Ring Manufacturer?","Yes, USA buyers can work with a Diamond Ring Manufacturer for wholesale, custom, and business-related diamond ring requirements."],
+    ["What is a Diamond Ring Manufacturer USA?","A Diamond Ring Manufacturer USA refers to a manufacturer serving the US market or operating in the USA. Buyers should verify the manufacturer's actual production location and services."],
+    ["Does Anirudh Jewels manufacture Diamond Rings?","Anirudh Jewels works in diamond jewelry manufacturing and can discuss Diamond Ring requirements for wholesale and custom projects."],
+    ["Can I buy Wholesale Diamond Rings?","Yes, businesses can discuss Wholesale Diamond Rings for retail stores, boutiques, brands, and other jewelry businesses."],
+    ["What are Wholesale Diamond Rings?","Wholesale Diamond Rings are diamond rings supplied to businesses in wholesale quantities for resale or business collections."],
+    ["What is a Wholesale Diamond Ring Supplier?","A Wholesale Diamond Ring Supplier provides diamond rings to businesses for wholesale, retail, boutique, or brand requirements."],
+    ["What is Diamond Jewelry Wholesale?","Diamond Jewelry Wholesale involves supplying diamond jewelry to businesses in wholesale quantities for resale or commercial collections."],
+    ["What is a Diamond Jewelry Wholesale Supplier?","A Diamond Jewelry Wholesale Supplier provides diamond jewelry to retailers, boutiques, brands, and other businesses for wholesale requirements."],
+    ["What is B2B Diamond Jewelry?","B2B Diamond Jewelry refers to diamond jewelry supplied or manufactured for businesses such as retailers, brands, boutiques, wholesalers, and online stores."],
+    ["What is Diamond Jewelry B2B?","Diamond Jewelry B2B focuses on business-to-business diamond jewelry sourcing, manufacturing, wholesale, and custom production."],
+    ["Can I order Custom Diamond Rings in bulk?","Yes, businesses can discuss bulk Custom Diamond Rings based on their required designs, quantities, diamond specifications, metals, and production requirements."],
+    ["Can Anirudh Jewels supply Diamond Rings for USA businesses?","Anirudh Jewels can discuss Diamond Rings, Wholesale Diamond Rings, Custom Diamond Rings, and B2B Diamond Jewelry requirements with USA-based businesses."]
+  ];
+
+  const listEl = document.getElementById('faqList');
+  const countEl = document.getElementById('faqCount');
+  const emptyEl = document.getElementById('faqEmpty');
+
+  function renderFAQs(items){
+    listEl.innerHTML = '';
+    items.forEach(([q,a], idx) => {
+      const item = document.createElement('div');
+      item.className = 'faq-item';
+      item.innerHTML = `
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          <span class="num">${String(idx+1).padStart(2,'0')}</span>
+          <h3>${q}</h3>
+          <span class="faq-toggle"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">${a}</div></div>
+      `;
+      listEl.appendChild(item);
+    });
+  }
+
+  function toggleFAQ(header){
+    const item = header.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  function filterFAQs(){
+    const term = document.getElementById('faqSearchInput').value.toLowerCase().trim();
+    const filtered = term
+      ? faqs.filter(([q,a]) => q.toLowerCase().includes(term) || a.toLowerCase().includes(term))
+      : faqs;
+    renderFAQs(filtered);
+    countEl.textContent = term ? `${filtered.length} result${filtered.length!==1?'s':''} found` : `${faqs.length} questions answered`;
+    emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
+  }
+
+  renderFAQs(faqs);
+  countEl.textContent = `${faqs.length} questions answered`;
+</script>
+</body>
