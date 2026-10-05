@@ -1,0 +1,191 @@
+<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Earrings FAQs — Anirudh Jewels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b0e3d; --gold:#c9a24a; --gold-light:#e7cd8e;
+    --cream:#fbf6ee; --cream-2:#f4ecdd; --ink:#221c1a; --ink-soft:#5b5450;
+    --line: rgba(34,28,26,0.12); --surface:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--cream); color:var(--ink); font-family:'Jost', sans-serif; font-weight:300; line-height:1.6; }
+  h1,h2,h3{ font-family:'Cormorant Garamond', serif; font-weight:500; color:var(--ink); line-height:1.15; }
+  .wrap{max-width:880px; margin:0 auto; padding:0 32px;}
+  @media (max-width:600px){ .wrap{padding:0 20px;} }
+
+  .faq-section{ padding:48px 0 80px; }
+
+  .faq-search{ max-width:460px; margin:0 auto 40px; position:relative; }
+  .faq-search input{
+    width:100%; padding:14px 44px 14px 18px; border:1px solid var(--line); border-radius:30px;
+    background:var(--surface); font-family:'Jost',sans-serif; font-size:14.5px; color:var(--ink);
+    outline:none; transition:border-color .2s ease;
+  }
+  .faq-search input:focus{ border-color:var(--gold); }
+  .faq-search svg{ position:absolute; right:16px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--ink-soft); pointer-events:none; }
+
+  .faq-count{ text-align:center; font-size:13px; color:var(--ink-soft); letter-spacing:.05em; margin:-24px 0 30px; }
+  .faq-list{ display:flex; flex-direction:column; gap:10px; }
+  .faq-item{ background:var(--surface); border:1px solid var(--line); border-radius:8px; overflow:hidden; transition:border-color .2s ease; }
+  .faq-item.open{ border-color:var(--gold-light); }
+  .faq-q{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; cursor:pointer; user-select:none; }
+  .faq-q .num{ font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--gold); flex:0 0 auto; min-width:22px; }
+  .faq-q h3{ font-family:'Jost', sans-serif; font-weight:500; font-size:16px; color:var(--ink); flex:1; }
+  .faq-toggle{ flex:0 0 auto; width:26px; height:26px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; position:relative; }
+  .faq-toggle::before, .faq-toggle::after{ content:''; position:absolute; background:var(--gold); transition:transform .25s ease, opacity .25s ease; }
+  .faq-toggle::before{ width:11px; height:1.4px; }
+  .faq-toggle::after{ width:1.4px; height:11px; }
+  .faq-item.open .faq-toggle::after{ transform:rotate(90deg); opacity:0; }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+  .faq-a-inner{ padding:0 22px 20px 60px; font-size:15px; color:var(--ink-soft); max-width:640px; }
+  @media (max-width:600px){ .faq-a-inner{ padding-left:22px; } }
+  .faq-empty{ text-align:center; color:var(--ink-soft); font-size:15px; padding:40px 0; display:none; }
+
+  .faq-cta{ margin-top:56px; text-align:center; padding:40px 32px; background:var(--cream-2); border-radius:10px; }
+  .faq-cta h2{ font-size:28px; margin-bottom:12px; }
+  .faq-cta p{ color:var(--ink-soft); font-size:15px; margin-bottom:22px; max-width:480px; margin-left:auto; margin-right:auto; }
+  .btn-gold{
+    display:inline-block; background:var(--gold-light); color:var(--navy); padding:14px 32px;
+    font-size:13.5px; letter-spacing:.12em; text-decoration:none; border-radius:2px;
+    font-family:'Jost',sans-serif; font-weight:500; transition:opacity .2s ease;
+  }
+  .btn-gold:hover{ opacity:.85; }
+</style>
+
+  <section class="faq-section">
+    <div class="wrap">
+      <div class="faq-search">
+        <input type="text" id="faqSearchInput" placeholder="Search a question..." oninput="filterFAQs()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </div>
+      <p class="faq-count" id="faqCount"></p>
+
+      <div class="faq-list" id="faqList"></div>
+      <p class="faq-empty" id="faqEmpty">No matching questions found. Try a different search term.</p>
+
+      <div class="faq-cta">
+        <h2>Still have a question?</h2>
+        <p>Reach out to our team for anything related to Diamond Earrings, custom designs, or wholesale requirements.</p>
+        <a href="/pages/contact-us" class="btn-gold">CONTACT US</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const faqs = [
+    ["How do I choose the right Diamond Earrings?","Choose earrings based on your style, diamond quality, metal, comfort, and occasion. Studs are great for everyday wear, while drops, hoops, and statement styles work well for special occasions."],
+    ["Which Diamond Earrings are best for everyday wear?","Diamond stud earrings are one of the easiest choices for everyday wear because they are simple, comfortable, and easy to style with different outfits."],
+    ["Are Diamond Earrings a good choice for women?","Yes, Diamond Earrings are a popular jewelry choice for women. Studs, hoops, drops, and elegant statement designs can suit different personal styles."],
+    ["Where can I buy Diamond Earrings online?","You can buy Diamond Earrings online from jewelry brands and manufacturers that provide clear product details, diamond information, metal specifications, and customization options."],
+    ["How much do Diamond Earrings cost?","The price depends on diamond carat weight, quality, number of diamonds, metal type, design, and craftsmanship. Custom and larger diamond earrings can have a higher price."],
+    ["Which diamond shape looks good in earrings?","Round diamonds are a classic choice, while oval, pear, princess, emerald, and other shapes can create different looks. The best shape depends on your preferred style."],
+    ["Are Diamond Stud Earrings good for daily wear?","Yes. Diamond stud earrings are simple and versatile, making them suitable for regular office wear, casual outfits, and everyday styling."],
+    ["Which is better for a classic look: Diamond Studs or Hoops?","Diamond studs usually create a simple and timeless look, while diamond hoops offer a more noticeable and fashionable appearance."],
+    ["Can Diamond Earrings be worn every day?","Yes, many Diamond Earrings can be worn daily when they are comfortable and properly secured. Regular cleaning and careful handling can help maintain their appearance."],
+    ["How should I clean my Diamond Earrings?","Use a soft jewelry cloth and a suitable mild cleaning method recommended for your jewelry. Avoid harsh chemicals and handle the earrings carefully during cleaning."],
+    ["Are Natural Diamond Earrings different from Lab Grown Diamond Earrings?","Yes. Natural diamonds are formed naturally underground, while lab grown diamonds are created using controlled technology. Both can have the same basic chemical composition."],
+    ["Should I choose Natural or Lab Grown Diamond Earrings?","The choice depends on your preferences, budget, and the type of diamond you want. Both options are available in different earring designs and styles."],
+    ["Are GIA Certified Diamond Earrings available?","Yes, Diamond Earrings can be made using GIA-certified diamonds. Certification can provide information about the diamond's characteristics and grading."],
+    ["Can I get IGI Certified Diamond Earrings?","Yes, earrings can be made with IGI-certified diamonds. The certification details depend on the specific diamond used in the jewelry."],
+    ["Which gold is commonly used for Diamond Earrings?","Diamond Earrings are commonly made in yellow gold, white gold, and rose gold. Different karat options such as 14K and 18K are also available."],
+    ["Do White Gold Diamond Earrings look modern?","Yes. White gold offers a clean and contemporary appearance and pairs naturally with the bright look of diamonds."],
+    ["Are Rose Gold Diamond Earrings suitable for women?","Yes, rose gold Diamond Earrings can create a warm and elegant appearance and work well with both modern and traditional jewelry styles."],
+    ["Can I buy Yellow Gold Diamond Earrings online?","Yes, Yellow Gold Diamond Earrings are available in many styles, including studs, hoops, drops, and customized designs."],
+    ["Which Diamond Earrings are suitable for a wedding?","Diamond drop earrings, elegant studs, chandelier earrings, and other detailed designs can complement bridal and wedding outfits."],
+    ["Can Diamond Earrings be worn with traditional outfits?","Yes. Gold Diamond Earrings, jhumka-inspired designs, drops, and gemstone combinations can work well with traditional clothing."],
+    ["Are Diamond Drop Earrings good for special occasions?","Yes. Diamond Drop Earrings can add movement and sparkle, making them suitable for weddings, parties, celebrations, and formal occasions."],
+    ["What makes Diamond Hoop Earrings popular?","Diamond Hoop Earrings combine the classic hoop shape with diamond detailing. They can give a stylish look while remaining easy to pair with different outfits."],
+    ["Are Diamond Huggie Earrings comfortable?","Diamond Huggie Earrings are designed to sit close to the ear and can be a comfortable option for people who prefer smaller, secure-looking earrings."],
+    ["Which Diamond Earrings are suitable for men?","Men can choose from diamond studs, simple hoops, huggies, and minimalist diamond designs depending on their personal style."],
+    ["Can men wear Gold Diamond Earrings?","Yes. Gold Diamond Earrings are available in simple and modern designs for men, including studs, hoops, and minimalist styles."],
+    ["Are Diamond Earrings a good gift?","Yes. Diamond Earrings can be a meaningful gift for birthdays, anniversaries, weddings, Valentine's Day, and other special occasions."],
+    ["How do I choose Diamond Earrings as a gift?","Consider the recipient's style, preferred metal color, earring size, and everyday jewelry preferences. Simple designs are often easier to wear with different outfits."],
+    ["What diamond carat size should I choose for earrings?","The right carat size depends on your budget and preferred appearance. Smaller diamonds can create a subtle look, while larger stones offer a more noticeable appearance."],
+    ["Do both earrings usually have the same diamond weight?","In a matching pair, the earrings generally follow the same design and stone specifications. Always check the listed total carat weight and individual stone details before buying."],
+    ["Can Diamond Earrings be customized?","Yes. Custom Diamond Earrings can be created according to preferred diamond shapes, metal, size, design, and other jewelry requirements."],
+    ["Can I order Custom Gold Diamond Earrings?","Yes. Custom Gold Diamond Earrings can be designed in yellow, white, or rose gold with different diamond styles and settings."],
+    ["Can I customize Diamond Stud Earrings?","Yes. Diamond Stud Earrings can be customized by selecting the diamond shape, size, metal type, setting, and overall design."],
+    ["Can Diamond Earrings include gemstones?","Yes. Diamond Earrings can be combined with gemstones such as sapphire, ruby, emerald, amethyst, aquamarine, and other colored stones."],
+    ["Are Diamond and Sapphire Earrings popular?","Diamond and Sapphire Earrings combine the sparkle of diamonds with the color of sapphire. They can be designed in both classic and modern styles."],
+    ["Can I get Diamond Ruby Earrings in gold?","Yes. Diamond Ruby Earrings can be created in yellow, white, or rose gold depending on the desired design and gemstone combination."],
+    ["Which Diamond Earrings are good for a minimalist style?","Small diamond studs, tiny hoops, huggies, and simple solitaire designs are suitable choices for a minimalist jewelry style."],
+    ["Which Diamond Earrings look more glamorous?","Chandelier earrings, large hoops, detailed drops, and statement designs can create a more noticeable and glamorous appearance."],
+    ["Are Simple Diamond Earrings suitable for office wear?","Yes. Small studs, huggies, and simple diamond designs can provide an elegant appearance without looking too elaborate for professional settings."],
+    ["How can I select Diamond Earrings for my face shape?","You can consider earring length and shape when choosing a style. Studs offer a simple look, while drops and elongated designs create a different visual effect."],
+    ["What should I check before buying Diamond Earrings online?","Check diamond details, total carat weight, metal purity, dimensions, certification if applicable, return policy, and product images before placing an order."],
+    ["Are Real Diamond Earrings worth considering?","Real Diamond Earrings can be suitable for buyers looking for natural diamond jewelry. Always check the diamond details and certification information when available."],
+    ["How do I know if Diamond Earrings are authentic?","Look for reliable product information, diamond certification where applicable, metal details, and a trusted seller or manufacturer. Professional certification can help verify specific diamond characteristics."],
+    ["Can Diamond Earrings be made for wholesale orders?","Yes. Diamond Earrings can be produced for wholesale requirements in different designs, quantities, metals, and diamond specifications."],
+    ["Where can jewelry retailers source Wholesale Diamond Earrings?","Retailers can source Wholesale Diamond Earrings directly from jewelry manufacturers and wholesale suppliers that offer B2B production and bulk orders."],
+    ["Does Anirudh Jewels offer Wholesale Diamond Earrings?","Anirudh Jewels offers jewelry manufacturing and wholesale solutions, with Diamond Earrings available according to design and buyer requirements."],
+    ["Can Anirudh Jewels make Custom Diamond Earrings?","Yes. Custom Diamond Earrings can be developed according to the required design, diamond specifications, metal, and customization requirements."],
+    ["Does Anirudh Jewels manufacture Diamond Jewelry?","Yes. Anirudh Jewels works with diamond jewelry and provides manufacturing and wholesale solutions for different jewelry requirements."],
+    ["Can Diamond Earrings be made for USA buyers?","Yes. Diamond Earrings can be developed for international and USA buyers according to their required designs, specifications, and order requirements."],
+    ["Are Wholesale Diamond Earrings available for retailers?","Yes. Wholesale Diamond Earrings can be sourced for retail businesses, jewelry stores, and other B2B buyers depending on order quantity and product requirements."],
+    ["Can I order Diamond Earrings in bulk?","Yes. Bulk Diamond Earring orders can be produced based on selected designs, quantities, metal specifications, and diamond requirements."],
+    ["Which Diamond Earrings are best for a special gift?","Studs, solitaire earrings, elegant drops, and personalized designs can all work well as gifts. The best option depends on the recipient's style and occasion."],
+    ["Are Solitaire Diamond Earrings a classic choice?","Yes. Solitaire Diamond Earrings have a simple design that focuses attention on the individual center diamond, making them a timeless jewelry option."],
+    ["Can Diamond Earrings be personalized?","Yes. Personalized Diamond Earrings can include custom shapes, initials, special designs, or specific diamond and metal combinations based on the project."],
+    ["What is the difference between Diamond Studs and Diamond Drops?","Diamond studs sit close to the earlobe, while Diamond Drop Earrings extend below the ear. Studs are generally more subtle, whereas drops can create a more noticeable look."],
+    ["Which Diamond Earrings are suitable for everyday elegance?","Small studs, huggies, simple hoops, and lightweight designs can provide an elegant appearance while remaining practical for regular wear."],
+    ["Can I choose different diamond shapes for Custom Earrings?","Yes. Custom Diamond Earrings can be designed with different diamond shapes such as round, oval, pear, princess, emerald, and other available cuts."],
+    ["How should I store my Diamond Earrings?","Keep them in a clean, dry jewelry box or separate jewelry pouch to reduce scratches and contact with other pieces. Store the pair securely when not in use."],
+    ["Are Diamond Earrings available in different price ranges?","Yes. Prices can vary significantly based on diamond quality, carat weight, metal, design, craftsmanship, and whether the diamonds are natural or lab grown."],
+    ["Where can I find Diamond Earrings for wholesale and custom orders?","You can contact a jewelry manufacturer or wholesale supplier that provides custom production and B2B services. Share your preferred design, quantity, metal, and diamond requirements."],
+    ["What should I consider when buying Diamond Earrings for my jewelry business?","For B2B purchases, consider product quality, diamond specifications, metal purity, manufacturing capability, customization, order quantity, pricing, delivery, and supplier communication."]
+  ];
+
+  const listEl = document.getElementById('faqList');
+  const countEl = document.getElementById('faqCount');
+  const emptyEl = document.getElementById('faqEmpty');
+
+  function renderFAQs(items){
+    listEl.innerHTML = '';
+    items.forEach(([q,a], idx) => {
+      const item = document.createElement('div');
+      item.className = 'faq-item';
+      item.innerHTML = `
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          <span class="num">${String(idx+1).padStart(2,'0')}</span>
+          <h3>${q}</h3>
+          <span class="faq-toggle"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">${a}</div></div>
+      `;
+      listEl.appendChild(item);
+    });
+  }
+
+  function toggleFAQ(header){
+    const item = header.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  function filterFAQs(){
+    const term = document.getElementById('faqSearchInput').value.toLowerCase().trim();
+    const filtered = term
+      ? faqs.filter(([q,a]) => q.toLowerCase().includes(term) || a.toLowerCase().includes(term))
+      : faqs;
+    renderFAQs(filtered);
+    countEl.textContent = term ? `${filtered.length} result${filtered.length!==1?'s':''} found` : `${faqs.length} questions answered`;
+    emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
+  }
+
+  renderFAQs(faqs);
+  countEl.textContent = `${faqs.length} questions answered`;
+</script>
+</body>
