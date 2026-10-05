@@ -1,0 +1,191 @@
+<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pendants FAQs — Anirudh Jewels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b0e3d; --gold:#c9a24a; --gold-light:#e7cd8e;
+    --cream:#fbf6ee; --cream-2:#f4ecdd; --ink:#221c1a; --ink-soft:#5b5450;
+    --line: rgba(34,28,26,0.12); --surface:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--cream); color:var(--ink); font-family:'Jost', sans-serif; font-weight:300; line-height:1.6; }
+  h1,h2,h3{ font-family:'Cormorant Garamond', serif; font-weight:500; color:var(--ink); line-height:1.15; }
+  .wrap{max-width:880px; margin:0 auto; padding:0 32px;}
+  @media (max-width:600px){ .wrap{padding:0 20px;} }
+
+  .faq-section{ padding:48px 0 80px; }
+
+  .faq-search{ max-width:460px; margin:0 auto 40px; position:relative; }
+  .faq-search input{
+    width:100%; padding:14px 44px 14px 18px; border:1px solid var(--line); border-radius:30px;
+    background:var(--surface); font-family:'Jost',sans-serif; font-size:14.5px; color:var(--ink);
+    outline:none; transition:border-color .2s ease;
+  }
+  .faq-search input:focus{ border-color:var(--gold); }
+  .faq-search svg{ position:absolute; right:16px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--ink-soft); pointer-events:none; }
+
+  .faq-count{ text-align:center; font-size:13px; color:var(--ink-soft); letter-spacing:.05em; margin:-24px 0 30px; }
+  .faq-list{ display:flex; flex-direction:column; gap:10px; }
+  .faq-item{ background:var(--surface); border:1px solid var(--line); border-radius:8px; overflow:hidden; transition:border-color .2s ease; }
+  .faq-item.open{ border-color:var(--gold-light); }
+  .faq-q{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; cursor:pointer; user-select:none; }
+  .faq-q .num{ font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--gold); flex:0 0 auto; min-width:22px; }
+  .faq-q h3{ font-family:'Jost', sans-serif; font-weight:500; font-size:16px; color:var(--ink); flex:1; }
+  .faq-toggle{ flex:0 0 auto; width:26px; height:26px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; position:relative; }
+  .faq-toggle::before, .faq-toggle::after{ content:''; position:absolute; background:var(--gold); transition:transform .25s ease, opacity .25s ease; }
+  .faq-toggle::before{ width:11px; height:1.4px; }
+  .faq-toggle::after{ width:1.4px; height:11px; }
+  .faq-item.open .faq-toggle::after{ transform:rotate(90deg); opacity:0; }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+  .faq-a-inner{ padding:0 22px 20px 60px; font-size:15px; color:var(--ink-soft); max-width:640px; }
+  @media (max-width:600px){ .faq-a-inner{ padding-left:22px; } }
+  .faq-empty{ text-align:center; color:var(--ink-soft); font-size:15px; padding:40px 0; display:none; }
+
+  .faq-cta{ margin-top:56px; text-align:center; padding:40px 32px; background:var(--cream-2); border-radius:10px; }
+  .faq-cta h2{ font-size:28px; margin-bottom:12px; }
+  .faq-cta p{ color:var(--ink-soft); font-size:15px; margin-bottom:22px; max-width:480px; margin-left:auto; margin-right:auto; }
+  .btn-gold{
+    display:inline-block; background:var(--gold-light); color:var(--navy); padding:14px 32px;
+    font-size:13.5px; letter-spacing:.12em; text-decoration:none; border-radius:2px;
+    font-family:'Jost',sans-serif; font-weight:500; transition:opacity .2s ease;
+  }
+  .btn-gold:hover{ opacity:.85; }
+</style>
+
+  <section class="faq-section">
+    <div class="wrap">
+      <div class="faq-search">
+        <input type="text" id="faqSearchInput" placeholder="Search a question..." oninput="filterFAQs()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </div>
+      <p class="faq-count" id="faqCount"></p>
+
+      <div class="faq-list" id="faqList"></div>
+      <p class="faq-empty" id="faqEmpty">No matching questions found. Try a different search term.</p>
+
+      <div class="faq-cta">
+        <h2>Still have a question?</h2>
+        <p>Reach out to our team for anything related to Pendants, custom designs, or wholesale requirements.</p>
+        <a href="/pages/contact-us" class="btn-gold">CONTACT US</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const faqs = [
+    ["What are Pendants?","Pendants are jewelry pieces designed to hang from a chain or necklace. They are available in many styles, metals, gemstones, and designs for women and men."],
+    ["What is a Pendant?","A Pendant is a decorative jewelry piece worn around the neck with a chain or necklace. Pendants can feature gold, diamonds, gemstones, initials, symbols, or other designs."],
+    ["What are Pendant Designs?","Pendant Designs include simple, modern, classic, statement, personalized, geometric, floral, heart, cross, and gemstone styles. Designs can be selected according to personal taste and occasion."],
+    ["Where can I find a Pendant Collection?","A Pendant Collection can include gold, diamond, gemstone, personalized, and designer pendants. A collection may also offer different styles for women, men, and special occasions."],
+    ["Can I Buy Pendants Online?","Yes, you can Buy Pendants Online by checking the pendant material, design, size, gemstone details, and product specifications. Always review seller and return information before purchasing."],
+    ["What should I check when buying Pendants Online?","When buying Pendants Online, check the metal type, gold karat if applicable, gemstone or diamond details, pendant size, weight, chain availability, and product specifications."],
+    ["What are Gold Pendants?","Gold Pendants are pendant jewelry pieces made with gold or gold alloys. They are available in yellow gold, white gold, rose gold, and many different designs."],
+    ["What are Gold Pendant Designs?","Gold Pendant Designs include simple, modern, traditional, personalized, floral, geometric, religious, and statement styles. Gold pendants can also include diamonds or colored gemstones."],
+    ["Can I Buy Gold Pendants Online?","Yes, Gold Pendants Online are available in many designs and gold types. Before buying, check the karat, weight, dimensions, design details, and product information."],
+    ["What are Gold Pendants for Women?","Gold Pendants for Women are available in simple, elegant, modern, personalized, and statement designs. They can be worn for everyday use, gifting, or special occasions."],
+    ["What are Gold Pendants for Men?","Gold Pendants for Men are available in simple, modern, religious, personalized, and statement designs. They can feature plain gold, diamonds, gemstones, initials, or symbols."],
+    ["What are Simple Gold Pendants?","Simple Gold Pendants feature clean designs with minimal decorative details. They are suitable for everyday wear and can be paired with different chain styles."],
+    ["What are Designer Gold Pendants?","Designer Gold Pendants feature distinctive designs, detailed craftsmanship, and creative patterns. They can include diamonds, gemstones, or unique goldwork."],
+    ["What are Diamond Pendants?","Diamond Pendants feature one or more diamonds as the main or accent stones. They are available in simple, elegant, modern, halo, solitaire, and custom designs."],
+    ["What are Diamond Pendant Designs?","Diamond Pendant Designs include solitaire, halo, floral, geometric, heart, modern, and classic styles. The design can also be customized based on the preferred diamond and metal."],
+    ["Can I Buy Diamond Pendants Online?","Yes, you can Buy Diamond Pendants Online by comparing designs, diamond specifications, metal type, pendant size, and certification details where applicable."],
+    ["What are Diamond Pendants for Women?","Diamond Pendants for Women are available in elegant, simple, modern, and statement styles. They can be suitable for everyday wear, gifting, anniversaries, weddings, and other occasions."],
+    ["What are Diamond Pendants for Men?","Diamond Pendants for Men can feature simple designs, geometric shapes, initials, symbols, or other modern styles. Diamonds can be combined with gold for a distinctive look."],
+    ["What are Gold Diamond Pendants?","Gold Diamond Pendants combine gold with one or more diamonds. They are available in yellow gold, white gold, rose gold, and different pendant designs."],
+    ["What are Gold Diamond Pendant Designs?","Gold Diamond Pendant Designs include solitaire, halo, floral, geometric, heart, and custom styles. Buyers can choose different gold colors and diamond arrangements according to their preferences."],
+    ["What are White Gold Diamond Pendants?","White Gold Diamond Pendants combine white gold with diamonds and are available in modern and classic designs. They are often selected for their clean and contemporary appearance."],
+    ["What are Yellow Gold Diamond Pendants?","Yellow Gold Diamond Pendants combine the traditional warm tone of yellow gold with diamonds. They can be designed in simple, classic, or detailed styles."],
+    ["What are Rose Gold Diamond Pendants?","Rose Gold Diamond Pendants combine the warm pink tone of rose gold with diamonds. They can be created in romantic, modern, floral, and other decorative designs."],
+    ["What are Gemstone Pendants?","Gemstone Pendants feature colored gemstones such as ruby, sapphire, emerald, amethyst, aquamarine, and other stones. They are available in many colors and design styles."],
+    ["What are Gemstone Pendant Designs?","Gemstone Pendant Designs can include simple, statement, solitaire, cluster, floral, geometric, and custom styles. The design can be selected according to the gemstone and desired appearance."],
+    ["What are Colored Stone Pendants?","Colored Stone Pendants feature colorful gemstones in different shapes and sizes. They can be made with gold and may also include diamonds or other gemstones."],
+    ["What are Gold Gemstone Pendants?","Gold Gemstone Pendants combine gold with colored gemstones such as ruby, sapphire, emerald, or other stones. They can be designed for everyday wear or special occasions."],
+    ["What are Diamond Gemstone Pendants?","Diamond Gemstone Pendants combine diamonds with colored gemstones to create a detailed and colorful jewelry design. Different gemstones can be selected according to the desired style."],
+    ["What are Ruby Pendants?","Ruby Pendants feature ruby gemstones and can be made in gold with or without diamonds. They are available in simple, classic, statement, and custom designs."],
+    ["What are Sapphire Pendants?","Sapphire Pendants feature sapphire gemstones and are available in different shapes and settings. They can be paired with gold and diamonds for additional design details."],
+    ["What are Emerald Pendants?","Emerald Pendants feature emerald gemstones and can be designed in classic, modern, floral, geometric, or custom styles. Emeralds can also be combined with diamonds."],
+    ["What are Birthstone Pendants?","Birthstone Pendants feature a gemstone associated with a person's birth month. They are commonly chosen as personalized gifts and can be made in different metals and designs."],
+    ["What are Pendants for Women?","Pendants for Women are available in gold, diamond, gemstone, personalized, simple, and designer styles. They can be worn with different chains for everyday and special occasions."],
+    ["What are Pendants for Men?","Pendants for Men include gold, diamond, gemstone, cross, initial, religious, geometric, and personalized styles. Designs can range from simple to bold statement pieces."],
+    ["What are Simple Pendants?","Simple Pendants have clean shapes and minimal decorative details. They are suitable for everyday wear and can easily be combined with different necklaces or chains."],
+    ["What are Elegant Pendants?","Elegant Pendants feature refined designs and can include gold, diamonds, gemstones, or detailed metalwork. They are suitable for both everyday styling and special occasions."],
+    ["What are Statement Pendants?","Statement Pendants are designed to attract attention through larger sizes, bold shapes, detailed designs, or prominent gemstones. They can be used as the main part of an outfit."],
+    ["What are Personalized Pendants?","Personalized Pendants can feature names, initials, letters, dates, symbols, or other custom details. They are often selected for gifting and personal occasions."],
+    ["What are Initial Pendants?","Initial Pendants feature a letter representing a person's name or a meaningful word. They can be made in gold, diamond, gemstone, or other jewelry styles."],
+    ["What are Name Pendants?","Name Pendants are customized with a person's name or selected word. They can be created in different fonts, metals, sizes, and decorative styles."],
+    ["What are Religious Pendants?","Religious Pendants feature symbols associated with different faiths or spiritual traditions. They can be made in gold, diamond, gemstone, or simple metal designs."],
+    ["What are Cross Pendants?","Cross Pendants feature a cross-shaped design and can be created in simple or detailed styles. Gold, diamonds, gemstones, or other decorative elements may be included."],
+    ["What are Custom Pendants?","Custom Pendants are created according to specific design requirements such as shape, metal, gemstone, size, engraving, or personalization."],
+    ["Can I order Custom Gold Pendants?","Yes, Custom Gold Pendants can be designed according to your preferred gold color, karat, size, shape, and decorative details. Diamonds or gemstones can also be added if required."],
+    ["Can I order Custom Diamond Pendants?","Yes, Custom Diamond Pendants can be created according to the preferred diamond shape, size, metal, setting, and overall design."],
+    ["Can I order Custom Gemstone Pendants?","Yes, Custom Gemstone Pendants can be designed using a preferred gemstone, color, shape, metal, and setting. Custom requirements can be discussed before production."],
+    ["What is a Custom Pendant Manufacturer?","A Custom Pendant Manufacturer produces pendants according to specific customer or business requirements. This can include custom shapes, metals, gemstones, sizes, and designs."],
+    ["What is a Custom Pendant Jewelry Manufacturer?","A Custom Pendant Jewelry Manufacturer creates pendant jewelry based on specific designs and production requirements. This service can be useful for jewelry brands, retailers, and private-label businesses."],
+    ["Can I buy Wholesale Pendants?","Yes, jewelry businesses can buy Wholesale Pendants for retail stores, boutiques, jewelry brands, and online businesses. Wholesale orders can be based on designs and required quantities."],
+    ["What are Wholesale Pendants?","Wholesale Pendants are pendant jewelry pieces supplied to businesses in quantities intended for resale or commercial collections. They can include gold, diamond, gemstone, and customized designs."],
+    ["What is a Wholesale Pendant Supplier?","A Wholesale Pendant Supplier provides pendant jewelry to businesses for resale or commercial use. Suppliers may offer different metals, gemstones, designs, and order quantities."],
+    ["What is a Pendant Manufacturer?","A Pendant Manufacturer produces pendants according to specific designs, materials, gemstones, sizes, and production requirements. Manufacturers can work on both standard and custom designs."],
+    ["What is a Pendant Manufacturer USA?","A Pendant Manufacturer USA generally refers to a manufacturer operating in or serving the US market. Businesses should verify the manufacturer's location, capabilities, and services before placing an order."],
+    ["Can USA businesses source Pendants from a manufacturer?","Yes, USA businesses can source Pendants from manufacturers for wholesale, custom, private-label, and other jewelry business requirements."],
+    ["What are Gold Pendants in USA?","Gold Pendants in USA refers to gold pendant jewelry available for buyers or businesses in the US market. Designs can include simple, diamond, gemstone, personalized, and custom options."],
+    ["What are Diamond Pendants in USA?","Diamond Pendants in USA are diamond pendant jewelry options available for the US market. Buyers can compare diamond details, gold type, pendant design, and product specifications."],
+    ["What are Gemstone Pendants USA?","Gemstone Pendants USA refers to gemstone pendant jewelry offered for the US market. Options can include ruby, sapphire, emerald, amethyst, birthstone, and other gemstone designs."],
+    ["What are Custom Pendants USA?","Custom Pendants USA refers to personalized pendant designs created according to specific requirements for the US market. Customization can include the metal, gemstone, shape, size, engraving, or design."],
+    ["What is B2B Pendant Jewelry?","B2B Pendant Jewelry refers to pendant jewelry supplied or manufactured for businesses such as retailers, jewelry brands, boutiques, wholesalers, and online stores."],
+    ["Does Anirudh Jewels offer Pendants for wholesale and custom requirements?","Anirudh Jewels works with jewelry manufacturing and can discuss Gold Pendants, Diamond Pendants, Gemstone Pendants, Custom Pendants, and Wholesale Pendants for business requirements. Buyers can discuss their preferred designs, materials, gemstones, and quantities."]
+  ];
+
+  const listEl = document.getElementById('faqList');
+  const countEl = document.getElementById('faqCount');
+  const emptyEl = document.getElementById('faqEmpty');
+
+  function renderFAQs(items){
+    listEl.innerHTML = '';
+    items.forEach(([q,a], idx) => {
+      const item = document.createElement('div');
+      item.className = 'faq-item';
+      item.innerHTML = `
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          <span class="num">${String(idx+1).padStart(2,'0')}</span>
+          <h3>${q}</h3>
+          <span class="faq-toggle"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">${a}</div></div>
+      `;
+      listEl.appendChild(item);
+    });
+  }
+
+  function toggleFAQ(header){
+    const item = header.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  function filterFAQs(){
+    const term = document.getElementById('faqSearchInput').value.toLowerCase().trim();
+    const filtered = term
+      ? faqs.filter(([q,a]) => q.toLowerCase().includes(term) || a.toLowerCase().includes(term))
+      : faqs;
+    renderFAQs(filtered);
+    countEl.textContent = term ? `${filtered.length} result${filtered.length!==1?'s':''} found` : `${faqs.length} questions answered`;
+    emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
+  }
+
+  renderFAQs(faqs);
+  countEl.textContent = `${faqs.length} questions answered`;
+</script>
+</body>
