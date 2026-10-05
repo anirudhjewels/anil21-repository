@@ -1,0 +1,191 @@
+<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colour Stone Rings FAQs — Anirudh Jewels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b0e3d; --gold:#c9a24a; --gold-light:#e7cd8e;
+    --cream:#fbf6ee; --cream-2:#f4ecdd; --ink:#221c1a; --ink-soft:#5b5450;
+    --line: rgba(34,28,26,0.12); --surface:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--cream); color:var(--ink); font-family:'Jost', sans-serif; font-weight:300; line-height:1.6; }
+  h1,h2,h3{ font-family:'Cormorant Garamond', serif; font-weight:500; color:var(--ink); line-height:1.15; }
+  .wrap{max-width:880px; margin:0 auto; padding:0 32px;}
+  @media (max-width:600px){ .wrap{padding:0 20px;} }
+
+  .faq-section{ padding:48px 0 80px; }
+
+  .faq-search{ max-width:460px; margin:0 auto 40px; position:relative; }
+  .faq-search input{
+    width:100%; padding:14px 44px 14px 18px; border:1px solid var(--line); border-radius:30px;
+    background:var(--surface); font-family:'Jost',sans-serif; font-size:14.5px; color:var(--ink);
+    outline:none; transition:border-color .2s ease;
+  }
+  .faq-search input:focus{ border-color:var(--gold); }
+  .faq-search svg{ position:absolute; right:16px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--ink-soft); pointer-events:none; }
+
+  .faq-count{ text-align:center; font-size:13px; color:var(--ink-soft); letter-spacing:.05em; margin:-24px 0 30px; }
+  .faq-list{ display:flex; flex-direction:column; gap:10px; }
+  .faq-item{ background:var(--surface); border:1px solid var(--line); border-radius:8px; overflow:hidden; transition:border-color .2s ease; }
+  .faq-item.open{ border-color:var(--gold-light); }
+  .faq-q{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; cursor:pointer; user-select:none; }
+  .faq-q .num{ font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--gold); flex:0 0 auto; min-width:22px; }
+  .faq-q h3{ font-family:'Jost', sans-serif; font-weight:500; font-size:16px; color:var(--ink); flex:1; }
+  .faq-toggle{ flex:0 0 auto; width:26px; height:26px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; position:relative; }
+  .faq-toggle::before, .faq-toggle::after{ content:''; position:absolute; background:var(--gold); transition:transform .25s ease, opacity .25s ease; }
+  .faq-toggle::before{ width:11px; height:1.4px; }
+  .faq-toggle::after{ width:1.4px; height:11px; }
+  .faq-item.open .faq-toggle::after{ transform:rotate(90deg); opacity:0; }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+  .faq-a-inner{ padding:0 22px 20px 60px; font-size:15px; color:var(--ink-soft); max-width:640px; }
+  @media (max-width:600px){ .faq-a-inner{ padding-left:22px; } }
+  .faq-empty{ text-align:center; color:var(--ink-soft); font-size:15px; padding:40px 0; display:none; }
+
+  .faq-cta{ margin-top:56px; text-align:center; padding:40px 32px; background:var(--cream-2); border-radius:10px; }
+  .faq-cta h2{ font-size:28px; margin-bottom:12px; }
+  .faq-cta p{ color:var(--ink-soft); font-size:15px; margin-bottom:22px; max-width:480px; margin-left:auto; margin-right:auto; }
+  .btn-gold{
+    display:inline-block; background:var(--gold-light); color:var(--navy); padding:14px 32px;
+    font-size:13.5px; letter-spacing:.12em; text-decoration:none; border-radius:2px;
+    font-family:'Jost',sans-serif; font-weight:500; transition:opacity .2s ease;
+  }
+  .btn-gold:hover{ opacity:.85; }
+</style>
+
+  <section class="faq-section">
+    <div class="wrap">
+      <div class="faq-search">
+        <input type="text" id="faqSearchInput" placeholder="Search a question..." oninput="filterFAQs()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </div>
+      <p class="faq-count" id="faqCount"></p>
+
+      <div class="faq-list" id="faqList"></div>
+      <p class="faq-empty" id="faqEmpty">No matching questions found. Try a different search term.</p>
+
+      <div class="faq-cta">
+        <h2>Still have a question?</h2>
+        <p>Reach out to our team for anything related to Colour Stone Rings, custom designs, or wholesale requirements.</p>
+        <a href="/pages/contact-us" class="btn-gold">CONTACT US</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const faqs = [
+    ["What are Colour Stone Rings?","Colour Stone Rings are jewelry pieces featuring colorful gemstones set in different metals. They are available in many designs, from simple everyday rings to detailed statement styles."],
+    ["What are Color Stone Rings?","Color Stone Rings are rings featuring colored gemstones such as ruby, sapphire, emerald, amethyst, and other stones. They can be made in gold and other precious metals."],
+    ["What are Colored Stone Rings?","Colored Stone Rings feature gemstones in different natural or treated colors and are available in many designs. They can be worn for everyday use, gifting, engagements, or special occasions."],
+    ["What are Gemstone Rings?","Gemstone Rings are rings that feature gemstones such as ruby, sapphire, emerald, amethyst, aquamarine, garnet, opal, and more. They can be designed in different cuts, colors, settings, and metals."],
+    ["What are Colour Stone Ring Designs?","Colour Stone Ring Designs include simple, classic, modern, cocktail, statement, cluster, halo, solitaire, and custom styles. The design can be selected based on the gemstone and personal preference."],
+    ["Can I Buy Colour Stone Rings Online?","Yes, you can Buy Colour Stone Rings Online from jewelry stores that provide detailed product information. Before buying, check the gemstone, metal, size, weight, certification, and seller details."],
+    ["What should I check when buying Colour Stone Rings Online?","When buying Colour Stone Rings Online, check the gemstone type, color, size, cut, and quality. You should also check the metal, ring size, certification where applicable, and return or exchange policy."],
+    ["What are Natural Gemstone Rings?","Natural Gemstone Rings feature gemstones that are naturally formed in the earth. These stones can have natural variations in color, clarity, inclusions, and appearance, making every gemstone slightly different."],
+    ["What are Real Gemstone Rings?","Real Gemstone Rings feature genuine gemstones instead of imitation stones. Buyers should review the product specifications and certification details where available to understand the gemstone being purchased."],
+    ["What are Fine Gemstone Rings?","Fine Gemstone Rings generally combine quality gemstones with precious metals and detailed craftsmanship. They can include ruby, sapphire, emerald, and other gemstones in different designs."],
+    ["What are Colour Stone Rings for Women?","Colour Stone Rings for Women are available in many styles, including simple, elegant, statement, cocktail, gold, diamond, and custom designs. They can be chosen for everyday wear or special occasions."],
+    ["What are Gemstone Rings for Women?","Gemstone Rings for Women feature colorful gemstones and are available in classic and modern styles. Popular choices include ruby, sapphire, emerald, amethyst, and other colorful stones."],
+    ["What are Colored Gemstone Rings for Women?","Colored Gemstone Rings for Women feature gemstones in different colors and shapes. They can be combined with gold, diamonds, or other stones to create unique jewelry designs."],
+    ["What are Simple Gemstone Rings for Women?","Simple Gemstone Rings for Women usually feature a clean design with one main gemstone or minimal decorative details. They can be a practical choice for everyday wear and casual styling."],
+    ["What are Elegant Gemstone Rings for Women?","Elegant Gemstone Rings for Women combine refined designs with colorful gemstones and quality metal settings. They can be suitable for parties, celebrations, gifting, and other special occasions."],
+    ["What are Statement Gemstone Rings for Women?","Statement Gemstone Rings for Women generally feature larger gemstones, detailed settings, or bold designs. They are created to stand out and can complement special-occasion outfits."],
+    ["What are Colour Stone Rings for Men?","Colour Stone Rings for Men are available in simple, modern, statement, signet, and custom designs. Popular choices can include sapphire, ruby, emerald, and other gemstones."],
+    ["What are Gemstone Rings for Men?","Gemstone Rings for Men can feature ruby, sapphire, emerald, onyx, amethyst, and other gemstones. They are available in different gold colors, metal finishes, and contemporary designs."],
+    ["What are Gold Gemstone Rings?","Gold Gemstone Rings combine gold with colorful gemstones to create a classic jewelry look. They can be made using yellow gold, white gold, or rose gold in different ring styles."],
+    ["What are Gold Colour Stone Rings?","Gold Colour Stone Rings feature colorful gemstones set into gold. Depending on the design, they can include a single gemstone, multiple stones, diamonds, or decorative gold details."],
+    ["What are Diamond Gemstone Rings?","Diamond Gemstone Rings combine diamonds with one or more colored gemstones. This combination creates a detailed design and allows different colors and gemstone shapes to be used together."],
+    ["What are Diamond and Colored Stone Rings?","Diamond and Colored Stone Rings combine the sparkle of diamonds with colorful stones such as ruby, sapphire, emerald, or other gemstones. They are available in both classic and modern designs."],
+    ["What are Ruby Rings?","Ruby Rings feature ruby gemstones as the main or accent stone. Ruby can be combined with yellow gold, white gold, rose gold, or diamonds for different jewelry styles."],
+    ["What are Sapphire Rings?","Sapphire Rings feature sapphire gemstones and are available in different shapes, sizes, and colors. They can be designed as simple rings, engagement rings, statement rings, or custom pieces."],
+    ["What are Emerald Rings?","Emerald Rings feature emerald gemstones and can have classic, modern, or statement designs. Emeralds can be combined with gold and diamonds to create distinctive jewelry pieces."],
+    ["What are Amethyst Rings?","Amethyst Rings feature purple-colored amethyst gemstones and are available in a variety of ring styles. They can be paired with different gold colors and other gemstones."],
+    ["What are Aquamarine Rings?","Aquamarine Rings feature blue to blue-green aquamarine gemstones with a fresh and elegant appearance. They can be used in simple, classic, engagement, and custom ring designs."],
+    ["What are Opal Rings?","Opal Rings feature opal gemstones that can display different colors and patterns depending on the stone. They are available in various settings and can be created for everyday or special-occasion wear."],
+    ["What are Topaz Rings?","Topaz Rings feature topaz gemstones that can be found in different colors and shades. These rings are available in various cuts, metals, settings, and design styles."],
+    ["What are Garnet Rings?","Garnet Rings feature garnet gemstones, which are commonly available in rich red shades as well as other colors. They can be designed with gold, diamonds, or other decorative details."],
+    ["What are Tourmaline Rings?","Tourmaline Rings feature tourmaline gemstones, which can occur in many different colors. Their natural color variety makes them suitable for unique, colorful, and custom ring designs."],
+    ["What are Tanzanite Rings?","Tanzanite Rings feature tanzanite gemstones known for their blue to violet appearance. They can be set in gold and combined with diamonds for elegant and distinctive ring designs."],
+    ["What are Gemstone Cocktail Rings?","Gemstone Cocktail Rings are generally bold and decorative rings featuring prominent gemstones. They are often selected for parties, celebrations, events, and other special occasions."],
+    ["What are Gemstone Statement Rings?","Gemstone Statement Rings use bold gemstones, larger settings, or detailed designs to create a noticeable appearance. They can be worn when you want the ring to become the main part of your jewelry look."],
+    ["What are Solitaire Gemstone Rings?","Solitaire Gemstone Rings feature one main gemstone as the center of attention. They offer a clean design and can be created using ruby, sapphire, emerald, or other gemstones."],
+    ["What are Halo Gemstone Rings?","Halo Gemstone Rings feature a central gemstone surrounded by smaller stones. Diamonds or additional gemstones can be used around the center stone to create a detailed appearance."],
+    ["What are Cluster Gemstone Rings?","Cluster Gemstone Rings feature multiple gemstones arranged closely together in one design. Different colors, shapes, and stone sizes can be combined to create a distinctive ring."],
+    ["What are Vintage Gemstone Rings?","Vintage Gemstone Rings feature design elements inspired by older jewelry styles. They may include detailed metalwork, decorative patterns, and colorful gemstones for a traditional appearance."],
+    ["What are Modern Gemstone Rings?","Modern Gemstone Rings feature contemporary shapes, clean lines, unique settings, and creative gemstone combinations. They are suitable for buyers looking for current and distinctive jewelry styles."],
+    ["What are Gemstone Engagement Rings?","Gemstone Engagement Rings use a colored gemstone as the main feature instead of, or sometimes along with, a diamond. Sapphire, ruby, and emerald are popular options for this style."],
+    ["What are Sapphire Engagement Rings?","Sapphire Engagement Rings feature sapphire as the main gemstone and can be paired with diamonds or other stones. They are available in yellow gold, white gold, rose gold, and other settings."],
+    ["What are Ruby Engagement Rings?","Ruby Engagement Rings feature a ruby as the main gemstone and can include diamonds or decorative gold details. They are available in classic, modern, and custom designs."],
+    ["What are Emerald Engagement Rings?","Emerald Engagement Rings feature an emerald as the center stone and can be designed in different settings. Gold and diamonds can also be added to create a more detailed ring."],
+    ["What are Gemstone Wedding Rings?","Gemstone Wedding Rings feature colored gemstones and can be designed as simple bands, statement rings, or detailed wedding jewelry. They can also be customized to match a couple's preferred style."],
+    ["What are Natural Colour Stone Rings?","Natural Colour Stone Rings feature naturally occurring gemstones with their own individual color and characteristics. Natural variations in clarity and inclusions can make each gemstone look unique."],
+    ["What are Certified Gemstone Rings?","Certified Gemstone Rings are accompanied by gemstone documentation or a certificate where applicable. Certification can provide information about the gemstone's identity and certain quality characteristics."],
+    ["What are Precious Gemstone Rings?","Precious Gemstone Rings generally feature valuable gemstones such as ruby, sapphire, or emerald set in precious metals. These rings can be created in simple, classic, or luxury designs."],
+    ["What are Custom Colour Stone Rings?","Custom Colour Stone Rings are made according to specific requirements such as gemstone type, color, shape, metal, ring size, and overall design. This allows buyers to create a more personalized piece."],
+    ["Can I order Custom Gemstone Rings?","Yes, Custom Gemstone Rings can be created according to your preferred gemstone, metal, size, setting, and design. Custom orders can be discussed based on individual or business requirements."],
+    ["Can I get Custom Gold Gemstone Rings?","Yes, Custom Gold Gemstone Rings can be designed using your preferred gemstone, gold color, karat, ring size, and design. Additional diamonds or gemstones can also be considered depending on the design."],
+    ["What are Personalized Gemstone Rings?","Personalized Gemstone Rings can include details such as initials, names, dates, symbols, or specific gemstone choices. They can be created to match a personal style or special occasion."],
+    ["What is a Custom Gemstone Jewelry Manufacturer?","A Custom Gemstone Jewelry Manufacturer produces jewelry according to specific customer or business requirements. This can include custom designs, gemstones, metals, sizes, and production quantities."],
+    ["Can I buy Wholesale Gemstone Rings?","Yes, jewelry businesses can source Wholesale Gemstone Rings for retail stores, boutiques, brands, and online jewelry businesses. Wholesale orders can be discussed according to designs and required quantities."],
+    ["What are Wholesale Colour Stone Rings?","Wholesale Colour Stone Rings are supplied to jewelry businesses in quantities intended for resale or commercial collections. They can include different gemstones, metals, designs, and customized requirements."],
+    ["What is a Gemstone Ring Manufacturer?","A Gemstone Ring Manufacturer produces rings featuring gemstones according to specific designs and production requirements. Manufacturers may work with different gemstones, metals, sizes, and quantities."],
+    ["What is a Gemstone Ring Manufacturer USA?","A Gemstone Ring Manufacturer USA generally refers to a manufacturer operating in or serving the US market. Buyers should verify the manufacturer's location, production capabilities, and business services."],
+    ["Can USA businesses source Gemstone Rings from a manufacturer?","Yes, USA businesses can source Gemstone Rings from manufacturers for wholesale, custom, private-label, and other business requirements. Buyers can discuss designs, gemstones, quantities, and production specifications."],
+    ["What is Wholesale Gemstone Jewelry?","Wholesale Gemstone Jewelry refers to gemstone jewelry supplied to businesses in quantities intended for resale or commercial use. It can include rings and other jewelry pieces featuring different gemstones."],
+    ["What is B2B Gemstone Jewelry?","B2B Gemstone Jewelry refers to gemstone jewelry supplied or manufactured for businesses such as retailers, jewelry brands, boutiques, wholesalers, and online stores."],
+    ["Does Anirudh Jewels offer Colour Stone Rings for wholesale and custom requirements?","Anirudh Jewels works with gemstone jewelry manufacturing and can discuss Colour Stone Rings, Custom Gemstone Rings, Gold Gemstone Rings, and Wholesale Gemstone Rings. Business buyers can discuss their preferred designs, gemstones, metals, and quantities."]
+  ];
+
+  const listEl = document.getElementById('faqList');
+  const countEl = document.getElementById('faqCount');
+  const emptyEl = document.getElementById('faqEmpty');
+
+  function renderFAQs(items){
+    listEl.innerHTML = '';
+    items.forEach(([q,a], idx) => {
+      const item = document.createElement('div');
+      item.className = 'faq-item';
+      item.innerHTML = `
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          <span class="num">${String(idx+1).padStart(2,'0')}</span>
+          <h3>${q}</h3>
+          <span class="faq-toggle"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">${a}</div></div>
+      `;
+      listEl.appendChild(item);
+    });
+  }
+
+  function toggleFAQ(header){
+    const item = header.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  function filterFAQs(){
+    const term = document.getElementById('faqSearchInput').value.toLowerCase().trim();
+    const filtered = term
+      ? faqs.filter(([q,a]) => q.toLowerCase().includes(term) || a.toLowerCase().includes(term))
+      : faqs;
+    renderFAQs(filtered);
+    countEl.textContent = term ? `${filtered.length} result${filtered.length!==1?'s':''} found` : `${faqs.length} questions answered`;
+    emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
+  }
+
+  renderFAQs(faqs);
+  countEl.textContent = `${faqs.length} questions answered`;
+</script>
+</body>
