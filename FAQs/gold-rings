@@ -1,0 +1,191 @@
+<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Rings FAQs — Anirudh Jewels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b0e3d; --gold:#c9a24a; --gold-light:#e7cd8e;
+    --cream:#fbf6ee; --cream-2:#f4ecdd; --ink:#221c1a; --ink-soft:#5b5450;
+    --line: rgba(34,28,26,0.12); --surface:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--cream); color:var(--ink); font-family:'Jost', sans-serif; font-weight:300; line-height:1.6; }
+  h1,h2,h3{ font-family:'Cormorant Garamond', serif; font-weight:500; color:var(--ink); line-height:1.15; }
+  .wrap{max-width:880px; margin:0 auto; padding:0 32px;}
+  @media (max-width:600px){ .wrap{padding:0 20px;} }
+
+  .faq-section{ padding:48px 0 80px; }
+
+  .faq-search{ max-width:460px; margin:0 auto 40px; position:relative; }
+  .faq-search input{
+    width:100%; padding:14px 44px 14px 18px; border:1px solid var(--line); border-radius:30px;
+    background:var(--surface); font-family:'Jost',sans-serif; font-size:14.5px; color:var(--ink);
+    outline:none; transition:border-color .2s ease;
+  }
+  .faq-search input:focus{ border-color:var(--gold); }
+  .faq-search svg{ position:absolute; right:16px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--ink-soft); pointer-events:none; }
+
+  .faq-count{ text-align:center; font-size:13px; color:var(--ink-soft); letter-spacing:.05em; margin:-24px 0 30px; }
+  .faq-list{ display:flex; flex-direction:column; gap:10px; }
+  .faq-item{ background:var(--surface); border:1px solid var(--line); border-radius:8px; overflow:hidden; transition:border-color .2s ease; }
+  .faq-item.open{ border-color:var(--gold-light); }
+  .faq-q{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; cursor:pointer; user-select:none; }
+  .faq-q .num{ font-family:'Cormorant Garamond', serif; font-size:15px; color:var(--gold); flex:0 0 auto; min-width:22px; }
+  .faq-q h3{ font-family:'Jost', sans-serif; font-weight:500; font-size:16px; color:var(--ink); flex:1; }
+  .faq-toggle{ flex:0 0 auto; width:26px; height:26px; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; position:relative; }
+  .faq-toggle::before, .faq-toggle::after{ content:''; position:absolute; background:var(--gold); transition:transform .25s ease, opacity .25s ease; }
+  .faq-toggle::before{ width:11px; height:1.4px; }
+  .faq-toggle::after{ width:1.4px; height:11px; }
+  .faq-item.open .faq-toggle::after{ transform:rotate(90deg); opacity:0; }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+  .faq-a-inner{ padding:0 22px 20px 60px; font-size:15px; color:var(--ink-soft); max-width:640px; }
+  @media (max-width:600px){ .faq-a-inner{ padding-left:22px; } }
+  .faq-empty{ text-align:center; color:var(--ink-soft); font-size:15px; padding:40px 0; display:none; }
+
+  .faq-cta{ margin-top:56px; text-align:center; padding:40px 32px; background:var(--cream-2); border-radius:10px; }
+  .faq-cta h2{ font-size:28px; margin-bottom:12px; }
+  .faq-cta p{ color:var(--ink-soft); font-size:15px; margin-bottom:22px; max-width:480px; margin-left:auto; margin-right:auto; }
+  .btn-gold{
+    display:inline-block; background:var(--gold-light); color:var(--navy); padding:14px 32px;
+    font-size:13.5px; letter-spacing:.12em; text-decoration:none; border-radius:2px;
+    font-family:'Jost',sans-serif; font-weight:500; transition:opacity .2s ease;
+  }
+  .btn-gold:hover{ opacity:.85; }
+</style>
+
+  <section class="faq-section">
+    <div class="wrap">
+      <div class="faq-search">
+        <input type="text" id="faqSearchInput" placeholder="Search a question..." oninput="filterFAQs()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </div>
+      <p class="faq-count" id="faqCount"></p>
+
+      <div class="faq-list" id="faqList"></div>
+      <p class="faq-empty" id="faqEmpty">No matching questions found. Try a different search term.</p>
+
+      <div class="faq-cta">
+        <h2>Still have a question?</h2>
+        <p>Reach out to our team for anything related to Gold Rings, custom designs, or wholesale requirements.</p>
+        <a href="/pages/contact-us" class="btn-gold">CONTACT US</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const faqs = [
+    ["What are Gold Rings?","Gold Rings are jewelry pieces made with gold and available in different karats, colors, styles, and designs for women and men."],
+    ["What is a Gold Ring?","A Gold Ring is a ring made using gold as the main metal and can feature a simple design, diamonds, gemstones, or other decorative details."],
+    ["Are Gold Rings for Women available?","Yes, Gold Rings for Women are available in simple, elegant, modern, designer, diamond, gemstone, and custom designs."],
+    ["Are Gold Rings for Men available?","Yes, Gold Rings for Men are available in classic, modern, simple, signet, wedding, and statement styles."],
+    ["Where can I find Gold Ring Designs?","Gold Ring Designs are available in many styles, including classic, modern, minimalist, statement, wedding, engagement, and customized designs."],
+    ["Can I buy Gold Rings Online?","Yes, you can Buy Gold Rings Online by checking the design, gold karat, ring size, product details, and seller information."],
+    ["What should I check when buying Gold Rings Online?","When buying Gold Rings Online, check the gold karat, metal details, ring size, weight, design, certification or hallmark information where applicable, and return terms."],
+    ["What are Real Gold Rings?","Real Gold Rings are made with genuine gold rather than gold-colored or imitation materials. The gold purity should be checked before purchasing."],
+    ["What are Solid Gold Rings?","Solid Gold Rings are made from gold alloy throughout the main body of the ring rather than being only gold-plated."],
+    ["What are Fine Gold Rings?","Fine Gold Rings generally refer to rings made with high-purity gold or premium gold alloys, depending on the product specifications."],
+    ["What are Luxury Gold Rings?","Luxury Gold Rings are premium jewelry pieces that may feature high-quality gold, diamonds, gemstones, detailed craftsmanship, or distinctive designs."],
+    ["What are Simple Gold Rings?","Simple Gold Rings feature clean and minimal designs and can be suitable for everyday wear, gifting, or simple styling."],
+    ["What are Elegant Gold Rings?","Elegant Gold Rings combine a refined design with gold and may include diamonds, gemstones, or simple polished details."],
+    ["What are Modern Gold Rings?","Modern Gold Rings feature contemporary shapes, patterns, settings, and design details for a current jewelry look."],
+    ["What are Classic Gold Rings?","Classic Gold Rings use timeless designs that can be worn for different occasions and personal styles."],
+    ["What are 14K Gold Rings?","14K Gold Rings are made with 14-karat gold, which contains 58.3% pure gold with the remaining portion made up of other metals."],
+    ["What are 18K Gold Rings?","18K Gold Rings contain 75% pure gold, with the remaining percentage consisting of other metals used in the alloy."],
+    ["What are 10K Gold Rings?","10K Gold Rings contain 41.7% pure gold and are made with other metals to create the gold alloy."],
+    ["What are 22K Gold Rings?","22K Gold Rings contain approximately 91.7% pure gold and are commonly chosen for their high gold content."],
+    ["What are 24K Gold Rings?","24K Gold Rings are made from very high-purity gold. Because pure gold is relatively soft, 24K is less common for everyday ring designs."],
+    ["What are Yellow Gold Rings?","Yellow Gold Rings have the traditional warm yellow appearance of gold and are available in many classic and modern designs."],
+    ["What are White Gold Rings?","White Gold Rings are made from a gold alloy with a white appearance and are popular for modern and diamond ring designs."],
+    ["What are Rose Gold Rings?","Rose Gold Rings feature a warm pinkish tone created by using a gold alloy containing metals such as copper."],
+    ["What are Gold Rings for Women Online?","Gold Rings for Women Online include a wide range of designs that can be viewed and compared through online jewelry stores."],
+    ["What are Gold Ring Designs for Women?","Gold Ring Designs for Women include simple bands, diamond rings, gemstone rings, statement rings, engagement rings, and customized styles."],
+    ["What are Simple Gold Rings for Women?","Simple Gold Rings for Women feature minimal designs that can work well for everyday wear, gifting, or casual occasions."],
+    ["What are Gold Wedding Rings for Women?","Gold Wedding Rings for Women are designed for wedding ceremonies and can feature plain gold, diamonds, gemstones, or decorative patterns."],
+    ["What are Gold Engagement Rings for Women?","Gold Engagement Rings for Women combine gold with an engagement-style design and may feature diamonds or gemstones as the center or accent stones."],
+    ["What are Gold Statement Rings for Women?","Gold Statement Rings for Women feature bold or detailed designs intended to create a noticeable jewelry look."],
+    ["What are Gold Cocktail Rings for Women?","Gold Cocktail Rings for Women are generally larger or more decorative rings that are often worn for parties, celebrations, and special occasions."],
+    ["What are Men's Gold Rings?","Men's Gold Rings are designed for different styles and can include wedding bands, signet rings, simple bands, and statement designs."],
+    ["What are Gold Signet Rings for Men?","Gold Signet Rings for Men traditionally feature a flat or detailed top surface and can be customized with patterns, initials, or other designs."],
+    ["What are Gold Wedding Rings for Men?","Gold Wedding Rings for Men are available in yellow gold, white gold, rose gold, and different finishes and widths."],
+    ["What are Gold Band Rings?","Gold Band Rings are typically simple ring styles with a continuous band and can be designed for women or men."],
+    ["What are Gold Engagement Rings?","Gold Engagement Rings are engagement rings made with yellow gold, white gold, rose gold, or other gold alloys and can include diamonds or gemstones."],
+    ["What is a Gold Engagement Ring?","A Gold Engagement Ring is a ring designed for an engagement or proposal and made with a gold setting."],
+    ["What are Gold Wedding Rings?","Gold Wedding Rings are rings designed for marriage and are available in different gold colors, karats, widths, and designs."],
+    ["What are Gold Wedding Bands?","Gold Wedding Bands are ring styles with a band-focused design and are commonly used as wedding rings."],
+    ["Can I get a Gold Wedding Ring Set?","Yes, a Gold Wedding Ring Set can include matching or coordinated rings designed for couples."],
+    ["What is a Gold Ring Set?","A Gold Ring Set can include multiple coordinated gold rings or matching rings designed to complement each other."],
+    ["What are Gold Diamond Rings?","Gold Diamond Rings combine gold with one or more diamonds and are available in yellow gold, white gold, and rose gold designs."],
+    ["What are Gold Diamond Rings for Women?","Gold Diamond Rings for Women combine diamonds with gold in styles such as solitaire, halo, cluster, modern, and classic designs."],
+    ["What are Gold Diamond Rings for Men?","Gold Diamond Rings for Men combine gold with diamonds and can feature simple, modern, signet, or statement designs."],
+    ["What are White Gold Diamond Rings?","White Gold Diamond Rings combine white gold with diamonds and are commonly available in solitaire, engagement, wedding, and modern designs."],
+    ["What are Yellow Gold Diamond Rings?","Yellow Gold Diamond Rings combine traditional yellow gold with diamonds and can be created in classic or contemporary styles."],
+    ["What are Rose Gold Diamond Rings?","Rose Gold Diamond Rings combine the warm tone of rose gold with diamonds and are available in different styles and settings."],
+    ["What are Gold Gemstone Rings?","Gold Gemstone Rings combine gold with colored gemstones such as ruby, sapphire, emerald, amethyst, or other stones."],
+    ["What are Gold Rings with Colored Stones?","Gold Rings with Colored Stones feature gemstones in different colors and can be designed for everyday wear or special occasions."],
+    ["What are Gold Ruby Rings?","Gold Ruby Rings combine gold with ruby gemstones and can be designed in classic, modern, statement, or custom styles."],
+    ["What are Gold Sapphire Rings?","Gold Sapphire Rings feature sapphire gemstones set in gold and are available in different colors, shapes, and ring designs."],
+    ["What are Custom Gold Rings?","Custom Gold Rings are created according to specific requirements such as design, gold karat, color, size, gemstones, and other details."],
+    ["Can I order Custom Gold Rings?","Yes, buyers can discuss their preferred design, gold type, size, gemstones, and other specifications for a Custom Gold Ring."],
+    ["What are Personalized Gold Rings?","Personalized Gold Rings can include individual details such as initials, names, dates, symbols, or custom design elements."],
+    ["What is a Custom Gold Jewelry Manufacturer?","A Custom Gold Jewelry Manufacturer creates gold jewelry according to specific customer or business requirements and designs."],
+    ["Can I buy Wholesale Gold Rings?","Yes, jewelry businesses can source Wholesale Gold Rings for retail stores, boutiques, brands, and other commercial requirements."],
+    ["What are Wholesale Gold Rings?","Wholesale Gold Rings are gold rings supplied to businesses in quantities intended for resale or commercial jewelry collections."],
+    ["What is a Gold Ring Manufacturer?","A Gold Ring Manufacturer produces gold rings according to specific designs, gold specifications, sizes, quantities, and production requirements."],
+    ["What is a Gold Ring Manufacturer USA?","A Gold Ring Manufacturer USA generally refers to a manufacturer serving the US market or operating in the USA. Buyers should verify the manufacturer's location and services."],
+    ["Can USA businesses source Gold Rings from a manufacturer?","Yes, USA businesses can work with jewelry manufacturers for wholesale, custom, private-label, and other Gold Ring requirements."],
+    ["Does Anirudh Jewels offer Gold Rings for wholesale and custom requirements?","Anirudh Jewels works with gold jewelry manufacturing and can discuss Gold Rings, Custom Gold Rings, Gold Diamond Rings, and Wholesale Gold Rings for business requirements."]
+  ];
+
+  const listEl = document.getElementById('faqList');
+  const countEl = document.getElementById('faqCount');
+  const emptyEl = document.getElementById('faqEmpty');
+
+  function renderFAQs(items){
+    listEl.innerHTML = '';
+    items.forEach(([q,a], idx) => {
+      const item = document.createElement('div');
+      item.className = 'faq-item';
+      item.innerHTML = `
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          <span class="num">${String(idx+1).padStart(2,'0')}</span>
+          <h3>${q}</h3>
+          <span class="faq-toggle"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">${a}</div></div>
+      `;
+      listEl.appendChild(item);
+    });
+  }
+
+  function toggleFAQ(header){
+    const item = header.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  function filterFAQs(){
+    const term = document.getElementById('faqSearchInput').value.toLowerCase().trim();
+    const filtered = term
+      ? faqs.filter(([q,a]) => q.toLowerCase().includes(term) || a.toLowerCase().includes(term))
+      : faqs;
+    renderFAQs(filtered);
+    countEl.textContent = term ? `${filtered.length} result${filtered.length!==1?'s':''} found` : `${faqs.length} questions answered`;
+    emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
+  }
+
+  renderFAQs(faqs);
+  countEl.textContent = `${faqs.length} questions answered`;
+</script>
+</body>
